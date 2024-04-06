@@ -20,7 +20,7 @@ const menu = (): MenuType[] => {
       id: "d29b0eec-709c-406c-9c75-05d74eca14c0",
       path: "/dashboard",
       icon: HomeOutline,
-      title: "Página Inicial",
+      title: "Dashboard",
     },
   ];
 };

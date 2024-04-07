@@ -1,4 +1,5 @@
 // ** External Imports
+import { Toaster } from "sonner";
 import { ReactNode } from "react";
 import NextTopLoader from "nextjs-toploader";
 
@@ -35,6 +36,7 @@ const ThemeComponent = (props: Props) => {
       <CssBaseline />
       <GlobalStyles styles={() => CustomStyles(theme) as any} />
       <NextTopLoader showSpinner={false} color={theme.palette.primary.main} />
+      <Toaster richColors theme={theme.palette.mode} duration={5000} position="bottom-center" />
       {children}
     </ThemeProvider>
   );

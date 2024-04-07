@@ -51,7 +51,7 @@ const NavBar = () => {
           }}
         >
           <Box sx={{ mr: 2, display: "flex", alignItems: "center" }}>
-            {menu.hidden ? (
+            {menu.hidden && (
               <IconButton
                 color="inherit"
                 sx={{ ml: -2 }}
@@ -59,9 +59,7 @@ const NavBar = () => {
               >
                 <Menu />
               </IconButton>
-            ) : null}
-
-            {/* Breadcrumbs */}
+            )}
           </Box>
 
           <Box sx={{ display: "flex", alignItems: "center" }}>

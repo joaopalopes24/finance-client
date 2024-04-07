@@ -38,7 +38,6 @@ const useAuth = (options: Options): Session => {
     if (verified && session.user && !session.user.email_verified_at) {
       router.push("/verify-email");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session]);
 
   return { ...session };

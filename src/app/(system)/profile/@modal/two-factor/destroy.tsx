@@ -1,11 +1,11 @@
 // ** External Imports
+import { toast } from "sonner";
 import { useState } from "react";
 import { AxiosError } from "axios";
 import { useForm } from "react-hook-form";
 
 // ** Internal Imports
 import api from "@/repositories/api";
-import useAlert from "@/stores/alert";
 import useSession from "@/hooks/session";
 import { getMessage } from "@/utils/helpers";
 import useTwoFactor from "@/stores/two-factor";
@@ -14,8 +14,6 @@ import useTwoFactor from "@/stores/two-factor";
 import LoadingButton from "@mui/lab/LoadingButton";
 
 const Destroy = () => {
-  const alert = useAlert();
-
   const session = useSession();
 
   const methods = useForm<any>();
@@ -32,9 +30,9 @@ const Destroy = () => {
 
       twoFactor.destroy();
 
-      alert.openDynamic(getMessage(response), "success");
+      toast.success(getMessage(response));
     } catch (error) {
-      alert.openDynamic(getMessage(error as AxiosError), "error");
+      toast.error(getMessage(error as AxiosError));
     }
   });
 

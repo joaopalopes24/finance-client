@@ -41,7 +41,6 @@ const Menu = ({ page, menuItems }: Props) => {
   useEffect(() => {
     menu.setPage(page);
     menu.setHidden(hidden);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, hidden]);
 
   return (
@@ -51,10 +50,7 @@ const Menu = ({ page, menuItems }: Props) => {
       <BoxShadow />
 
       <Box sx={{ height: "100%", position: "relative", overflow: "hidden" }}>
-        <Box
-          className="soft-scrollbar"
-          sx={{ height: "100%", overflowY: "auto", overflowX: "hidden" }}
-        >
+        <Box sx={{ height: "100%", overflowY: "auto", overflowX: "hidden" }}>
           <Box
             sx={{
               height: "100%",

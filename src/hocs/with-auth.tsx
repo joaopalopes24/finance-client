@@ -13,7 +13,7 @@ type Options = {
 const withAuth = (Component: React.FC, options: Options = {}) => {
   const Wrapper: React.FC = (props) => {
     // prettier-ignore
-    const { confirm = false, verified = false } = options;
+    const { confirm = false, verified = true } = options;
 
     const confirmed = useConfirmed();
 

@@ -8,6 +8,7 @@ import HomeLayout from "@/layouts/home";
 import useSession from "@/hooks/session";
 
 // ** MUI Imports
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
 const Page = () => {
@@ -15,19 +16,21 @@ const Page = () => {
 
   return (
     <HomeLayout>
-      <div className="flex p-6 space-x-4">
+      <Box
+        sx={{ display: "flex", padding: 6, justifyContent: "space-between" }}
+      >
+        {" "}
         {session.user && (
           <Link href="/dashboard">
             <Button variant="contained">Dashboard</Button>
           </Link>
         )}
-
         {!session.user && (
           <Link href="/login">
             <Button variant="contained">Sign In</Button>
           </Link>
         )}
-      </div>
+      </Box>
     </HomeLayout>
   );
 };

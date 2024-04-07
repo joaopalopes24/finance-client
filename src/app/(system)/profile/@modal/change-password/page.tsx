@@ -1,21 +1,21 @@
 "use client";
 
 // ** External Imports
+import { toast } from "sonner";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { FormProvider, useForm } from "react-hook-form";
 
 // ** Internal Imports
 import api from "@/repositories/api";
-import useAlert from "@/stores/alert";
 import withAuth from "@/hocs/with-auth";
 import { createSchema } from "@/utils/validations";
+import TextPassword from "@/components/form/text-password";
 import { getMessage, getValidations, withValidation } from "@/utils/helpers";
 
 // ** MUI Imports
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
-import TextField from "@mui/material/TextField";
 import LoadingButton from "@mui/lab/LoadingButton";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
@@ -29,8 +29,6 @@ const validation = createSchema((yup) => ({
 }));
 
 const Page = () => {
-  const alert = useAlert();
-
   const router = useRouter();
 
   const handleClose = () => {
@@ -54,7 +52,7 @@ const Page = () => {
 
       methods.reset();
 
-      alert.openDynamic(getMessage(response), "success");
+      toast.success(getMessage(response));
     } catch (error) {
       getValidations(methods, error as AxiosError);
     }
@@ -80,9 +78,8 @@ const Page = () => {
             then your new password.
           </DialogContentText>
 
-          <TextField
+          <TextPassword
             fullWidth
-            type="password"
             variant="outlined"
             id="currentPassword"
             sx={{ marginTop: 4 }}
@@ -91,10 +88,9 @@ const Page = () => {
             {...withValidation(methods, "current_password")}
           />
 
-          <TextField
+          <TextPassword
             fullWidth
             id="password"
-            type="password"
             label="Password"
             variant="outlined"
             sx={{ marginTop: 4 }}
@@ -102,9 +98,8 @@ const Page = () => {
             {...withValidation(methods, "password")}
           />
 
-          <TextField
+          <TextPassword
             fullWidth
-            type="password"
             variant="outlined"
             sx={{ marginTop: 4 }}
             label="Confirm Password"
@@ -128,4 +123,6 @@ const Page = () => {
   );
 };
 
-export default withAuth(Page);
+export default withAuth(Page, {
+  verified: false,
+});

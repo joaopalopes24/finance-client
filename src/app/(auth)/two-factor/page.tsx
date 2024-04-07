@@ -97,14 +97,14 @@ const Page = () => {
                     }}
                   />
 
-                  {fieldState.invalid ? (
+                  {fieldState.invalid && (
                     <FormHelperText
                       error
                       sx={{ display: "flex", justifyContent: "center" }}
                     >
                       {get(fieldState.error, "message")}
                     </FormHelperText>
-                  ) : null}
+                  )}
                 </Box>
               )}
             />

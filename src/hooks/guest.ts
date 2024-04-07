@@ -14,7 +14,6 @@ const useGuest = (redirectTo?: string): Session => {
     if (session.user) {
       router.push(redirectTo || "/dashboard");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session]);
 
   return { ...session };

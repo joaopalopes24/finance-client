@@ -11,6 +11,7 @@ import withGuest from "@/hocs/with-guest";
 import GuestLayout from "@/layouts/guest";
 import { createSchema } from "@/utils/validations";
 import LinkBack from "@/components/auth/link-back";
+import TextPassword from "@/components/form/text-password";
 import { getValidations, withValidation } from "@/utils/helpers";
 
 // ** MUI Imports
@@ -53,30 +54,28 @@ const Page = () => {
           <TextField
             fullWidth
             id="email"
-            label="E-mail"
+            label="Email"
             variant="outlined"
             sx={{ marginBottom: 4 }}
             {...methods.register("email")}
             {...withValidation(methods, "email")}
           />
 
-          <TextField
+          <TextPassword
             fullWidth
             id="password"
-            label="Senha"
-            type="password"
+            label="Password"
             variant="outlined"
             sx={{ marginBottom: 4 }}
             {...methods.register("password")}
             {...withValidation(methods, "password")}
           />
 
-          <TextField
+          <TextPassword
             fullWidth
-            type="password"
             variant="outlined"
-            label="Confirmar Senha"
             sx={{ marginBottom: 4 }}
+            label="Confirm Password"
             id="password_confirmation"
             {...methods.register("password_confirmation")}
             {...withValidation(methods, "password_confirmation")}
@@ -89,10 +88,10 @@ const Page = () => {
             sx={{ marginBottom: 4 }}
             loading={methods.formState.isSubmitting}
           >
-            Resetar Senha
+            Reset Password
           </LoadingButton>
 
-          <LinkBack href="/login" text="Voltar para o Login" />
+          <LinkBack href="/login" text="Come back to login" />
         </form>
       </FormProvider>
     </GuestLayout>

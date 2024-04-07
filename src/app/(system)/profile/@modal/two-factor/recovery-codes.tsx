@@ -47,7 +47,6 @@ const RecoveryCodes = () => {
 
   useEffect(() => {
     show ? twoFactor.showRecoveryCodes() : twoFactor.hideRecoveryCodes();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [show]);
 
   if (!twoFactor.confirmed) return null;

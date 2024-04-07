@@ -12,6 +12,7 @@ import useSession from "@/hooks/session";
 import withGuest from "@/hocs/with-guest";
 import GuestLayout from "@/layouts/guest";
 import { createSchema } from "@/utils/validations";
+import TextPassword from "@/components/form/text-password";
 import { getStatus, getValidations, withValidation } from "@/utils/helpers";
 
 // ** MUI Imports
@@ -44,6 +45,8 @@ const Page = () => {
       await api.auth.login(values);
 
       session.mutate();
+
+      router.push("/dashboard");
     } catch (error) {
       getValidations(methods, error as AxiosError);
 
@@ -67,10 +70,9 @@ const Page = () => {
             {...withValidation(methods, "email")}
           />
 
-          <TextField
+          <TextPassword
             fullWidth
             id="password"
-            type="password"
             label="Password"
             variant="outlined"
             sx={{ marginBottom: 1 }}

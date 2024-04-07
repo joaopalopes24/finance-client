@@ -1,5 +1,6 @@
 // External Imports
 import { ReactNode } from "react";
+import CircleOutline from "mdi-material-ui/CircleOutline";
 
 // ** MUI Imports
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -15,7 +16,7 @@ const ItemIcon = ({ icon }: any) => {
       }}
     >
       {/* @ts-ignore */}
-      {icon && <IconTag />}
+      {icon ? <IconTag /> : <CircleOutline fontSize="small" />}
     </ListItemIcon>
   );
 };

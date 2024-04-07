@@ -1,11 +1,11 @@
 // ** External Imports
+import { toast } from "sonner";
 import { AxiosError } from "axios";
 import { ElementType } from "react";
 import { useForm } from "react-hook-form";
 
 // ** Internal Imports
 import api from "@/repositories/api";
-import useAlert from "@/stores/alert";
 import useSession from "@/hooks/session";
 import { getMessage } from "@/utils/helpers";
 
@@ -28,8 +28,6 @@ const LinkStyle = styled(Link)<LinkStyleProps>({
 });
 
 const ResendEmail = () => {
-  const alert = useAlert();
-
   const session = useSession();
 
   const methods = useForm<any>();
@@ -38,15 +36,15 @@ const ResendEmail = () => {
     try {
       const response = await api.auth.emailVerification();
 
-      alert.openDynamic(getMessage(response), "success");
+      toast.success(getMessage(response));
     } catch (error) {
-      alert.openDynamic(getMessage(error as AxiosError), "error");
+      toast.error(getMessage(error as AxiosError));
     }
   });
 
   return (
     <>
-      {!session.user?.email_verified_at ? (
+      {!session.user?.email_verified_at && (
         <Alert sx={{ mb: 6 }} variant="filled" severity="warning">
           <AlertTitle>
             Your email is not confirmed. Please check your inbox.
@@ -68,7 +66,7 @@ const ResendEmail = () => {
             )}
           </LinkStyle>
         </Alert>
-      ) : null}
+      )}
     </>
   );
 };

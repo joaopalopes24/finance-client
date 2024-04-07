@@ -1,18 +1,18 @@
 // ** External Imports
+import { toast } from "sonner";
 import { AxiosError } from "axios";
 import { FormProvider, useForm } from "react-hook-form";
 
 // ** Internal Imports
 import api from "@/repositories/api";
-import useAlert from "@/stores/alert";
 import useConfirmed from "@/hooks/confirmed";
 import { createSchema } from "@/utils/validations";
+import TextPassword from "@/components/form/text-password";
 import { getMessage, getValidations, withValidation } from "@/utils/helpers";
 
 // ** MUI Imports
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
-import TextField from "@mui/material/TextField";
 import LoadingButton from "@mui/lab/LoadingButton";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
@@ -29,8 +29,6 @@ const validation = createSchema((yup) => ({
 }));
 
 const ConfirmPassword = ({ open, handleClose }: Props) => {
-  const alert = useAlert();
-
   const confirmed = useConfirmed();
 
   const methods = useForm<any>({
@@ -46,7 +44,7 @@ const ConfirmPassword = ({ open, handleClose }: Props) => {
 
       confirmed.mutate();
 
-      alert.openDynamic(getMessage(response), "success");
+      toast.success(getMessage(response));
     } catch (error) {
       getValidations(methods, error as AxiosError);
     }
@@ -70,10 +68,9 @@ const ConfirmPassword = ({ open, handleClose }: Props) => {
             For security reasons, please confirm your password.
           </DialogContentText>
 
-          <TextField
+          <TextPassword
             fullWidth
             id="password"
-            type="password"
             label="Password"
             variant="outlined"
             sx={{ marginTop: 4 }}

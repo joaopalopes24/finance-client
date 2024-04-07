@@ -1,6 +1,7 @@
 "use client";
 
 // ** External Imports
+import { toast } from "sonner";
 import { AxiosError } from "axios";
 import { MouseEvent } from "react";
 import { useRouter } from "next/navigation";
@@ -8,16 +9,15 @@ import { FormProvider, useForm } from "react-hook-form";
 
 // ** Internal Imports
 import api from "@/repositories/api";
-import useAlert from "@/stores/alert";
 import withAuth from "@/hocs/with-auth";
 import GuestLayout from "@/layouts/guest";
 import useConfirmed from "@/hooks/confirmed";
 import { createSchema } from "@/utils/validations";
 import LinkBack from "@/components/auth/link-back";
+import TextPassword from "@/components/form/text-password";
 import { getMessage, getValidations, withValidation } from "@/utils/helpers";
 
 // ** MUI Imports
-import TextField from "@mui/material/TextField";
 import LoadingButton from "@mui/lab/LoadingButton";
 
 const validation = createSchema((yup) => ({
@@ -25,8 +25,6 @@ const validation = createSchema((yup) => ({
 }));
 
 const Page = () => {
-  const alert = useAlert();
-
   const router = useRouter();
 
   const confirmed = useConfirmed();
@@ -44,7 +42,7 @@ const Page = () => {
 
       router.back();
 
-      alert.openDynamic(getMessage(response), "success");
+      toast.success(getMessage(response));
     } catch (error) {
       getValidations(methods, error as AxiosError);
     }
@@ -60,10 +58,9 @@ const Page = () => {
     <GuestLayout>
       <FormProvider {...methods}>
         <form onSubmit={submit}>
-          <TextField
+          <TextPassword
             fullWidth
             id="password"
-            type="password"
             label="Password"
             variant="outlined"
             sx={{ marginBottom: 4 }}

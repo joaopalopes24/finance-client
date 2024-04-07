@@ -1,6 +1,7 @@
 "use client";
 
 // ** External Imports
+import { toast } from "sonner";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { FormProvider, useForm } from "react-hook-form";
@@ -11,7 +12,7 @@ import withGuest from "@/hocs/with-guest";
 import GuestLayout from "@/layouts/guest";
 import { createSchema } from "@/utils/validations";
 import LinkBack from "@/components/auth/link-back";
-import { getValidations, withValidation } from "@/utils/helpers";
+import { getMessage, getValidations, withValidation } from "@/utils/helpers";
 
 // ** MUI Imports
 import TextField from "@mui/material/TextField";
@@ -31,9 +32,11 @@ const Page = () => {
 
   const submit = methods.handleSubmit(async (values) => {
     try {
-      await api.auth.forgotPassword(values);
+      const response = await api.auth.forgotPassword(values);
 
       router.push("/login");
+
+      toast.success(getMessage(response));
     } catch (error) {
       getValidations(methods, error as AxiosError);
     }
@@ -46,7 +49,7 @@ const Page = () => {
           <TextField
             fullWidth
             id="email"
-            label="E-mail"
+            label="Email"
             variant="outlined"
             sx={{ marginBottom: 4 }}
             {...methods.register("email")}
@@ -60,10 +63,10 @@ const Page = () => {
             sx={{ marginBottom: 4 }}
             loading={methods.formState.isSubmitting}
           >
-            Enviar Link de Redefinição
+            Send Reset Link
           </LoadingButton>
 
-          <LinkBack href="/login" text="Voltar para o Login" />
+          <LinkBack href="/login" text="Come back to login" />
         </form>
       </FormProvider>
     </GuestLayout>

@@ -12,6 +12,7 @@ import useSession from "@/hooks/session";
 import withGuest from "@/hocs/with-guest";
 import GuestLayout from "@/layouts/guest";
 import { createSchema } from "@/utils/validations";
+import TextPassword from "@/components/form/text-password";
 import { getValidations, withValidation } from "@/utils/helpers";
 
 // ** MUI Imports
@@ -79,10 +80,9 @@ const Page = () => {
             {...withValidation(methods, "email")}
           />
 
-          <TextField
+          <TextPassword
             fullWidth
             id="password"
-            type="password"
             label="Password"
             variant="outlined"
             sx={{ marginBottom: 4 }}
@@ -90,9 +90,8 @@ const Page = () => {
             {...withValidation(methods, "password")}
           />
 
-          <TextField
+          <TextPassword
             fullWidth
-            type="password"
             variant="outlined"
             sx={{ marginBottom: 4 }}
             label="Confirm Password"

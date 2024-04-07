@@ -25,22 +25,17 @@ const Footer = () => {
           padding: theme.spacing(4, 6),
         }}
       >
-        <Box
-          sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <Typography sx={{ mr: 2 }}>
-            {`© ${new Date().getFullYear()}, Made by `}
+        <Typography sx={{ mr: 2 }}>
+          {`© ${new Date().getFullYear()}, Made by `}
 
-            <Link href="https://github.com/joaopalopes24" target="_blank">
-              João Pedro Lopes
-            </Link>
-          </Typography>
-        </Box>
+          <Link
+            target="_blank"
+            underline="none"
+            href="https://github.com/joaopalopes24"
+          >
+            João Pedro Lopes
+          </Link>
+        </Typography>
       </Box>
     </Box>
   );

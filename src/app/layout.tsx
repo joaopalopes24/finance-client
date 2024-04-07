@@ -26,7 +26,7 @@ const Layout = (props: LayoutProps) => {
 
   return (
     <html lang="en-US">
-      <body className="soft-scrollbar" suppressHydrationWarning>
+      <body suppressHydrationWarning>
         <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
       </body>
     </html>

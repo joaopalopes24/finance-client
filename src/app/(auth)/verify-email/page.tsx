@@ -1,13 +1,13 @@
 "use client";
 
 // ** External Imports
+import { toast } from "sonner";
 import { AxiosError } from "axios";
 import { FormProvider, useForm } from "react-hook-form";
 import LogoutVariant from "mdi-material-ui/LogoutVariant";
 
 // ** Internal Imports
 import api from "@/repositories/api";
-import useAlert from "@/stores/alert";
 import withAuth from "@/hocs/with-auth";
 import useSession from "@/hooks/session";
 import GuestLayout from "@/layouts/guest";
@@ -18,8 +18,6 @@ import LinkBack from "@/components/auth/link-back";
 import LoadingButton from "@mui/lab/LoadingButton";
 
 const Page = () => {
-  const alert = useAlert();
-
   const session = useSession();
 
   const methods = useForm<any>();
@@ -28,9 +26,9 @@ const Page = () => {
     try {
       const response = await api.auth.emailVerification();
 
-      alert.openDynamic(getMessage(response), "success");
+      toast.success(getMessage(response));
     } catch (error) {
-      alert.openDynamic(getMessage(error as AxiosError), "error");
+      toast.error(getMessage(error as AxiosError));
     }
   });
 
@@ -61,4 +59,6 @@ const Page = () => {
   );
 };
 
-export default withAuth(Page);
+export default withAuth(Page, {
+  verified: false,
+});

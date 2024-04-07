@@ -1,6 +1,10 @@
 // ** Internal Imports
 import AxiosFactory from "@/repositories/factory";
 
+type ConfirmPasswordProps = {
+  password: string;
+};
+
 type LoginProps = {
   email: string;
   password: string;
@@ -70,7 +74,7 @@ class AuthModule extends AxiosFactory {
     return this.$axios.get("/confirmed-status");
   }
 
-  async confirmPassword(values: { password: string }) {
+  async confirmPassword(values: ConfirmPasswordProps) {
     await this.csrf();
 
     return this.$axios.post("/confirm-password", values);

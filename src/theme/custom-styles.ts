@@ -3,28 +3,20 @@ import { Theme } from "@mui/material/styles";
 
 const MuiStyles = (theme: Theme) => {
   return {
-    ".hide-scrollbar": {
-      scrollbarWidth: "none",
-    },
-
-    ".hide-scrollbar::-webkit-scrollbar": {
-      display: "none",
-    },
-
-    ".soft-scrollbar::-webkit-scrollbar": {
+    "::-webkit-scrollbar": {
       cursor: "pointer",
       width: theme.spacing(1.5),
       height: theme.spacing(1.5),
     },
 
-    ".soft-scrollbar::-webkit-scrollbar-track": {
+    "::-webkit-scrollbar-track": {
       cursor: "pointer",
       backgroundColor: "transparent",
     },
 
-    ".soft-scrollbar::-webkit-scrollbar-thumb": {
+    "::-webkit-scrollbar-thumb": {
       cursor: "pointer",
-      borderRadius: "9999px",
+      borderRadius: theme.spacing(40),
       backgroundColor: theme.palette.primary.main,
     },
 

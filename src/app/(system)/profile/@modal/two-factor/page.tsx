@@ -2,6 +2,7 @@
 
 // ** External Imports
 import { get } from "lodash";
+import { toast } from "sonner";
 import { useEffect } from "react";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
@@ -12,7 +13,6 @@ import { MuiOtpInput } from "mui-one-time-password-input";
 import Enable from "./enable";
 import Destroy from "./destroy";
 import api from "@/repositories/api";
-import useAlert from "@/stores/alert";
 import withAuth from "@/hocs/with-auth";
 import useSession from "@/hooks/session";
 import useConfirmed from "@/hooks/confirmed";
@@ -96,8 +96,6 @@ const SecretKeyBox = ({ secretKey }: { secretKey: string | null }) => {
 };
 
 const Page = () => {
-  const alert = useAlert();
-
   const router = useRouter();
 
   const session = useSession();
@@ -116,7 +114,6 @@ const Page = () => {
 
   useEffect(() => {
     twoFactor.setConfirmed(Boolean(session.user?.has_two_factor));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   /**
@@ -133,7 +130,7 @@ const Page = () => {
 
       twoFactor.confirm();
 
-      alert.openDynamic(getMessage(response), "success");
+      toast.success(getMessage(response));
     } catch (error) {
       getValidations(methods, error as AxiosError);
     }
@@ -147,7 +144,6 @@ const Page = () => {
         maxWidth="sm"
         onClose={handleClose}
         open={confirmed.confirmed}
-        TransitionProps={{ className: "soft-scrollbar" }}
       >
         {twoFactor.confirmed && (
           <DialogTitle color="success.main">
@@ -253,4 +249,6 @@ const Page = () => {
   );
 };
 
-export default withAuth(Page);
+export default withAuth(Page, {
+  verified: false,
+});

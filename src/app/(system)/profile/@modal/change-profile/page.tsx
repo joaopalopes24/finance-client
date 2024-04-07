@@ -1,13 +1,13 @@
 "use client";
 
 // ** External Imports
+import { toast } from "sonner";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { FormProvider, useForm } from "react-hook-form";
 
 // ** Internal Imports
 import api from "@/repositories/api";
-import useAlert from "@/stores/alert";
 import withAuth from "@/hocs/with-auth";
 import useSession from "@/hooks/session";
 import { createSchema } from "@/utils/validations";
@@ -29,8 +29,6 @@ const validation = createSchema((yup) => ({
 }));
 
 const Page = () => {
-  const alert = useAlert();
-
   const router = useRouter();
 
   const session = useSession();
@@ -55,7 +53,7 @@ const Page = () => {
 
       session.mutate();
 
-      alert.openDynamic(getMessage(response), "success");
+      toast.success(getMessage(response));
     } catch (error) {
       getValidations(methods, error as AxiosError);
     }
@@ -115,4 +113,6 @@ const Page = () => {
   );
 };
 
-export default withAuth(Page);
+export default withAuth(Page, {
+  verified: false,
+});

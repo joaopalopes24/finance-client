@@ -6,6 +6,7 @@ import AccountOutline from "mdi-material-ui/AccountOutline";
 
 // Internal Imports
 import useSession from "@/hooks/session";
+import BoxMenu from "@/components/box/box-menu";
 
 // ** MUI Imports
 import Box from "@mui/material/Box";
@@ -62,18 +63,6 @@ const UserDropdown = () => {
     setAnchorEl(null);
   };
 
-  const styles = {
-    width: "100%",
-    display: "flex",
-    alignItems: "center",
-    color: "text.primary",
-    textDecoration: "none",
-    "& svg": {
-      marginRight: 2,
-      color: "text.secondary",
-    },
-  };
-
   return (
     <>
       <Badge
@@ -120,18 +109,18 @@ const UserDropdown = () => {
 
         {links.map((link, index) => (
           <MenuItem key={index} onClick={() => handleDropdownClose(link.href)}>
-            <Box sx={styles}>
+            <BoxMenu>
               <link.icon /> {link.title}
-            </Box>
+            </BoxMenu>
           </MenuItem>
         ))}
 
         <Divider />
 
         <MenuItem onClick={() => handleLogout()}>
-          <Box sx={styles}>
+          <BoxMenu>
             <LogoutVariant /> Log Out
-          </Box>
+          </BoxMenu>
         </MenuItem>
       </Menu>
     </>

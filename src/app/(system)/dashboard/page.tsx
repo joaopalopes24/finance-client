@@ -20,4 +20,4 @@ const Page = () => {
   );
 };
 
-export default withAuth(Page, { verified: true });
+export default withAuth(Page);

@@ -38,7 +38,7 @@ const RecoveryCodes = () => {
   const see = twoFactor.hasRecoveryCodes() && !spin;
 
   const submit = methods.handleSubmit(async () => {
-    await api.twoFactor.newRecoveryCodesTwoFactor().then(() => {
+    await api.twoFactor.newRecoveryCodes().then(() => {
       setShow(true);
 
       twoFactor.showRecoveryCodes();

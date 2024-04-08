@@ -1,48 +1,48 @@
 // ** Internal Imports
 import AxiosFactory from "@/repositories/factory";
 
-type ConfirmTwoFactorProps = {
+type ConfirmProps = {
   code: string;
 };
 
 class TwoFactorModule extends AxiosFactory {
-  async enableTwoFactor() {
+  async enable() {
     await this.csrf();
 
     return this.$axios.post("/api/two-factor/enable");
   }
 
-  async confirmTwoFactor(values: ConfirmTwoFactorProps) {
+  async confirm(values: ConfirmProps) {
     await this.csrf();
 
     return this.$axios.post("/api/two-factor/confirm", values);
   }
 
-  async destroyTwoFactor() {
+  async destroy() {
     await this.csrf();
 
     return this.$axios.delete("/api/two-factor/destroy");
   }
 
-  async qrCodeTwoFactor() {
+  async qrCode() {
     await this.csrf();
 
     return this.$axios.get("/api/two-factor/qr-code");
   }
 
-  async secretKeyTwoFactor() {
+  async secretKey() {
     await this.csrf();
 
     return this.$axios.get("/api/two-factor/secret-key");
   }
 
-  async recoveryCodesTwoFactor() {
+  async recoveryCodes() {
     await this.csrf();
 
     return this.$axios.get("/api/two-factor/recovery-codes");
   }
 
-  async newRecoveryCodesTwoFactor() {
+  async newRecoveryCodes() {
     await this.csrf();
 
     return this.$axios.post("/api/two-factor/recovery-codes");

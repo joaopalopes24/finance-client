@@ -2,16 +2,20 @@
 import { Toaster } from "sonner";
 import { ReactNode } from "react";
 import NextTopLoader from "nextjs-toploader";
+import { QueryClientProvider } from "react-query";
 
 // ** Internal Imports
 import overrides from "@/theme/overrides";
 import themeOptions from "@/theme/ThemeOptions";
 import CustomStyles from "@/theme/custom-styles";
+import { queryClient } from "@/services/react-query";
 
 // ** MUI Imports
 import CssBaseline from "@mui/material/CssBaseline";
 import GlobalStyles from "@mui/material/GlobalStyles";
 import { responsiveFontSizes } from "@mui/material/styles";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 interface Props {
@@ -32,13 +36,29 @@ const ThemeComponent = (props: Props) => {
   theme = responsiveFontSizes(theme);
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <GlobalStyles styles={() => CustomStyles(theme) as any} />
-      <NextTopLoader showSpinner={false} color={theme.palette.primary.main} />
-      <Toaster richColors theme={theme.palette.mode} duration={5000} position="bottom-center" />
-      {children}
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+
+          <GlobalStyles styles={() => CustomStyles(theme) as any} />
+
+          <NextTopLoader
+            showSpinner={false}
+            color={theme.palette.primary.main}
+          />
+
+          <Toaster
+            richColors
+            duration={5000}
+            position="bottom-center"
+            theme={theme.palette.mode}
+          />
+
+          {children}
+        </ThemeProvider>
+      </LocalizationProvider>
+    </QueryClientProvider>
   );
 };
 

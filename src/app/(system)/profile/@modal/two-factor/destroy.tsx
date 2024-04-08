@@ -24,7 +24,7 @@ const Destroy = () => {
 
   const submit = methods.handleSubmit(async () => {
     try {
-      const response = await api.twoFactor.destroyTwoFactor();
+      const response = await api.twoFactor.destroy();
 
       session.mutate();
 

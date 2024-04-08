@@ -1,9 +1,10 @@
 "use client";
 
 // ** External Imports
+import { toast } from "sonner";
 import { AxiosError } from "axios";
-import { useRouter } from "next/navigation";
 import { FormProvider, useForm } from "react-hook-form";
+import { useRouter, useSearchParams } from "next/navigation";
 
 // ** Internal Imports
 import api from "@/repositories/api";
@@ -12,7 +13,7 @@ import GuestLayout from "@/layouts/guest";
 import { createSchema } from "@/utils/validations";
 import LinkBack from "@/components/auth/link-back";
 import TextPassword from "@/components/form/text-password";
-import { getValidations, withValidation } from "@/utils/helpers";
+import { getMessage, getValidations, withValidation } from "@/utils/helpers";
 
 // ** MUI Imports
 import TextField from "@mui/material/TextField";
@@ -27,10 +28,12 @@ const validation = createSchema((yup) => ({
 const Page = () => {
   const router = useRouter();
 
+  const params = useSearchParams();
+
   const methods = useForm<any>({
     defaultValues: {
-      token: "",
-      email: "",
+      token: params.get("token") || "",
+      email: params.get("email") || "",
       password: "",
       password_confirmation: "",
     },
@@ -39,9 +42,11 @@ const Page = () => {
 
   const submit = methods.handleSubmit(async (values) => {
     try {
-      await api.auth.resetPassword(values);
+      const response = await api.auth.resetPassword(values);
 
       router.push("/login");
+
+      toast.success(getMessage(response));
     } catch (error) {
       getValidations(methods, error as AxiosError);
     }
@@ -55,10 +60,10 @@ const Page = () => {
             fullWidth
             id="email"
             label="Email"
+            disabled={true}
             variant="outlined"
             sx={{ marginBottom: 4 }}
             {...methods.register("email")}
-            {...withValidation(methods, "email")}
           />
 
           <TextPassword

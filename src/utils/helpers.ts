@@ -3,6 +3,9 @@ import { first, get, mapKeys } from "lodash";
 import { UseFormReturn } from "react-hook-form";
 import { AxiosError, AxiosResponse } from "axios";
 
+// ** Internal Imports
+import { Pagination } from "@/hooks/table";
+
 type ApiResponse = {
   data?: object;
   errors?: object;
@@ -34,6 +37,17 @@ export function getMessage(data: AxiosResponse | AxiosError): string {
   const response = getResponse(data);
 
   return response?.data?.message || "";
+}
+
+export function getPagination(data: AxiosResponse | undefined): Pagination {
+  const paginate = data?.data?.meta;
+
+  return {
+    total: paginate?.total || 0,
+    limit: paginate?.per_page || 5,
+    lastPage: paginate?.last_page || 1,
+    currentPage: paginate?.current_page || 1,
+  };
 }
 
 /**

@@ -14,7 +14,7 @@ const Enable = () => {
   const twoFactor = useTwoFactor();
 
   const submit = methods.handleSubmit(async () => {
-    await api.twoFactor.enableTwoFactor().then(() => {
+    await api.twoFactor.enable().then(() => {
       twoFactor.enable();
     });
   });

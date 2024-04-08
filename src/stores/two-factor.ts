@@ -63,13 +63,13 @@ const useTwoFactor = create<TwoFactor>()((set, get) => ({
   },
 
   showQrCode: () => {
-    api.twoFactor.qrCodeTwoFactor().then((response) => {
+    api.twoFactor.qrCode().then((response) => {
       set({ qrCode: getDataKey(response, "svg") });
     });
   },
 
   showSecretKey: () => {
-    api.twoFactor.secretKeyTwoFactor().then((response) => {
+    api.twoFactor.secretKey().then((response) => {
       set({ secretKey: getDataKey(response, "secretKey") });
     });
   },
@@ -79,7 +79,7 @@ const useTwoFactor = create<TwoFactor>()((set, get) => ({
   },
 
   showRecoveryCodes: () => {
-    api.twoFactor.recoveryCodesTwoFactor().then((response) => {
+    api.twoFactor.recoveryCodes().then((response) => {
       set({ recoveryCodes: getDataKey(response, "recoveryCodes") });
     });
   },

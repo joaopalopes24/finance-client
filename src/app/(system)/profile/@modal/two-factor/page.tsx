@@ -126,7 +126,7 @@ const Page = () => {
 
   const submit = methods.handleSubmit(async (values) => {
     try {
-      const response = await api.twoFactor.confirmTwoFactor(values);
+      const response = await api.twoFactor.confirm(values);
 
       twoFactor.confirm();
 

@@ -6,7 +6,9 @@ import PencilOutline from "mdi-material-ui/PencilOutline";
 import DeleteOutline from "mdi-material-ui/DeleteOutline";
 
 // ** Internal Imports
-import { BooleanCases } from "@/enum/boolean";
+import { StatusCases } from "@/enum/status";
+import { formatMoney } from "@/utils/helpers";
+import { OperationCases } from "@/enum/operation";
 
 // ** MUI Imports
 import Chip from "@mui/material/Chip";
@@ -14,39 +16,55 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 
-type AccountPlan = {
+type Transaction = {
   id: number;
-  name: string;
-  status: boolean;
+  description: string;
+  amount: number;
+  date: string;
+  operation: number;
+  status: number;
   created_at: string;
   updated_at: string;
 };
 
 type ComponentProps = {
-  accountPlan: AccountPlan;
+  transaction: Transaction;
 };
 
-type BooleanCase = {
-  value: boolean;
+type OperationCase = {
+  value: number;
   label: string;
   icon: ElementType;
   color: "success" | "error";
 };
 
+type StatusCase = {
+  value: number;
+  label: string;
+  icon: ElementType;
+  color: "warning" | "info" | "success" | "error";
+};
+
 export const CreateAction = () => {
   return (
-    <Link passHref legacyBehavior scroll={false} href="/account-plans/create">
+    <Link passHref legacyBehavior scroll={false} href="/transactions/create">
       <Button variant="contained" startIcon={<Plus />}>
-        New Account Plan
+        New Transaction
       </Button>
     </Link>
   );
 };
 
-export const StatusAction = ({ accountPlan }: ComponentProps) => {
-  const status = BooleanCases.find(
-    (item) => Boolean(item.value) === accountPlan.status,
-  ) as BooleanCase | undefined;
+export const AmountAction = ({ transaction }: ComponentProps) => {
+  const amount = formatMoney(transaction.amount);
+
+  return <Chip size="small" label={amount} variant="outlined" />;
+};
+
+export const OperationAction = ({ transaction }: ComponentProps) => {
+  const status = OperationCases.find(
+    (item) => item.value === transaction.operation,
+  ) as OperationCase | undefined;
 
   if (!status) return null;
 
@@ -62,21 +80,40 @@ export const StatusAction = ({ accountPlan }: ComponentProps) => {
   );
 };
 
-export const ButtonAction = ({ accountPlan }: ComponentProps) => {
-  const { id } = accountPlan;
+export const StatusAction = ({ transaction }: ComponentProps) => {
+  const status = StatusCases.find(
+    (item) => item.value === transaction.status,
+  ) as StatusCase | undefined;
+
+  if (!status) return null;
+
+  const IconTag: ElementType = status.icon;
+
+  return (
+    <Chip
+      size="small"
+      icon={<IconTag />}
+      color={status.color}
+      label={status.label}
+    />
+  );
+};
+
+export const ButtonAction = ({ transaction }: ComponentProps) => {
+  const { id } = transaction;
 
   const links = [
     {
       color: "info",
       title: "Edit",
       icon: PencilOutline,
-      href: `/account-plans/${id}/edit`,
+      href: `/transactions/${id}/edit`,
     },
     {
       color: "error",
       title: "Delete",
       icon: DeleteOutline,
-      href: `/account-plans/${id}/delete`,
+      href: `/transactions/${id}/delete`,
     },
   ];
 

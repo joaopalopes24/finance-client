@@ -12,6 +12,11 @@ type ApiResponse = {
   message?: string;
 };
 
+type Currency = {
+  locale?: string;
+  currency?: string;
+};
+
 /**
  * Response Helpers
  */
@@ -48,6 +53,28 @@ export function getPagination(data: AxiosResponse | undefined): Pagination {
     lastPage: paginate?.last_page || 1,
     currentPage: paginate?.current_page || 1,
   };
+}
+
+/**
+ * Money Helpers
+ */
+export function formatMoney(value: number, data?: Currency): string {
+  const locale = get(data, "locale", "en-US");
+
+  const currency = get(data, "currency", "USD");
+
+  return new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency: currency,
+  }).format(value);
+}
+
+export function formatNumber(value: number, data?: Currency): string {
+  const locale = get(data, "locale", "en-US");
+
+  return new Intl.NumberFormat(locale, {
+    minimumFractionDigits: 2,
+  }).format(value);
 }
 
 /**

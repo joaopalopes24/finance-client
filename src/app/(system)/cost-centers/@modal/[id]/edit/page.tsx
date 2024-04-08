@@ -12,7 +12,7 @@ import { Controller, FormProvider, useForm } from "react-hook-form";
 import api from "@/repositories/api";
 import withAuth from "@/hocs/with-auth";
 import { createSchema } from "@/utils/validations";
-import { getData, getMessage, getValidations, withValidation } from "@/utils/helpers";
+import { getDataKey, getMessage, getValidations, withValidation } from "@/utils/helpers";
 
 // ** MUI Imports
 import Button from "@mui/material/Button";
@@ -71,8 +71,8 @@ const Page = () => {
       try {
         const response = await api.costCenter.getById(id);
 
-        methods.setValue("name", getData(response).name);
-        methods.setValue("status", getData(response).status);
+        methods.setValue("name", getDataKey(response, "name"));
+        methods.setValue("status", getDataKey(response, "status"));
       } catch (error) {
         toast.error(getMessage(error as AxiosError));
       }

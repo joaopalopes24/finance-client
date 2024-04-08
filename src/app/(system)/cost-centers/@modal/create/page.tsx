@@ -80,14 +80,20 @@ const Page = () => {
             Fill in the information below to create a new cost center.
           </DialogContentText>
 
-          <TextField
-            fullWidth
-            id="name"
-            label="Name"
-            variant="outlined"
-            sx={{ marginTop: 4 }}
-            {...methods.register("name")}
-            {...withValidation(methods, "name")}
+          <Controller
+            name="name"
+            control={methods.control}
+            render={({ field }) => (
+              <TextField
+                fullWidth
+                id="name"
+                {...field}
+                label="Name"
+                variant="outlined"
+                sx={{ marginTop: 4 }}
+                {...withValidation(methods, "name")}
+              />
+            )}
           />
 
           <Controller

@@ -1,6 +1,9 @@
 // ** External Imports
+import dayjs from 'dayjs';
 import { Toaster } from "sonner";
 import { ReactNode } from "react";
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 import NextTopLoader from "nextjs-toploader";
 import { QueryClientProvider } from "react-query";
 
@@ -21,6 +24,9 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 interface Props {
   children: ReactNode;
 }
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 const ThemeComponent = (props: Props) => {
   const { children } = props;

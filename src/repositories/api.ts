@@ -3,6 +3,7 @@ import client from "@/services/axios";
 import AuthModule from "@/repositories/modules/auth";
 import SearchModule from "@/repositories/modules/search";
 import ProfileModule from "@/repositories/modules/profile";
+import DashboardModule from "@/repositories/modules/dashboard";
 import TwoFactorModule from "@/repositories/modules/two-factor";
 import CostCenterModule from "@/repositories/modules/cost-center";
 import TransactionModule from "@/repositories/modules/transaction";
@@ -12,6 +13,7 @@ type Modules = {
   auth: AuthModule;
   search: SearchModule;
   profile: ProfileModule;
+  dashboard: DashboardModule;
   twoFactor: TwoFactorModule;
   costCenter: CostCenterModule;
   accountPlan: AccountPlanModule;
@@ -22,6 +24,7 @@ const api: Modules = {
   auth: new AuthModule(client),
   search: new SearchModule(client),
   profile: new ProfileModule(client),
+  dashboard: new DashboardModule(client),
   twoFactor: new TwoFactorModule(client),
   costCenter: new CostCenterModule(client),
   accountPlan: new AccountPlanModule(client),

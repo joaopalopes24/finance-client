@@ -2,17 +2,16 @@
 
 // ** External Imports
 import { toast } from "sonner";
-import { useEffect } from "react";
 import { AxiosError } from "axios";
+import { useRouter } from "next/navigation";
 import { useQueryClient } from "react-query";
-import { useParams, useRouter } from "next/navigation";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 
 // ** Internal Imports
 import api from "@/repositories/api";
 import withAuth from "@/hocs/with-auth";
 import { createSchema } from "@/utils/validations";
-import { getData, getMessage, getValidations, withValidation } from "@/utils/helpers";
+import { getMessage, getValidations, withValidation } from "@/utils/helpers";
 
 // ** MUI Imports
 import Button from "@mui/material/Button";
@@ -32,16 +31,12 @@ const validation = createSchema((yup) => ({
 }));
 
 const Page = () => {
-  const params = useParams();
-
   const router = useRouter();
-
-  const id = params.id as string;
 
   const queryClient = useQueryClient();
 
   const handleClose = () => {
-    router.push("/cost-centers", { scroll: false });
+    router.push("/account-plans", { scroll: false });
   };
 
   const methods = useForm<any>({
@@ -54,32 +49,17 @@ const Page = () => {
 
   const submit = methods.handleSubmit(async (values) => {
     try {
-      const response = await api.costCenter.update(id, values);
+      const response = await api.accountPlan.create(values);
 
       handleClose();
 
       toast.success(getMessage(response));
 
-      queryClient.invalidateQueries("/api/cost-centers");
+      queryClient.invalidateQueries("/api/account-plans");
     } catch (error) {
       getValidations(methods, error as AxiosError);
     }
   });
-
-  useEffect(() => {
-    const fetch = async () => {
-      try {
-        const response = await api.costCenter.getById(id);
-
-        methods.setValue("name", getData(response).name);
-        methods.setValue("status", getData(response).status);
-      } catch (error) {
-        toast.error(getMessage(error as AxiosError));
-      }
-    };
-
-    fetch();
-  }, []);
 
   return (
     <FormProvider {...methods}>
@@ -93,27 +73,21 @@ const Page = () => {
           onSubmit: submit,
         }}
       >
-        <DialogTitle color="primary">Edit Cost Center</DialogTitle>
+        <DialogTitle color="primary">Create Account Plan</DialogTitle>
 
         <DialogContent>
           <DialogContentText>
-            Fill in the information below to edit the cost center.
+            Fill in the information below to create a new account plan.
           </DialogContentText>
 
-          <Controller
-            name="name"
-            control={methods.control}
-            render={({ field }) => (
-              <TextField
-                fullWidth
-                id="name"
-                {...field}
-                label="Name"
-                variant="outlined"
-                sx={{ marginTop: 4 }}
-                {...withValidation(methods, "name")}
-              />
-            )}
+          <TextField
+            fullWidth
+            id="name"
+            label="Name"
+            variant="outlined"
+            sx={{ marginTop: 4 }}
+            {...methods.register("name")}
+            {...withValidation(methods, "name")}
           />
 
           <Controller
@@ -135,7 +109,7 @@ const Page = () => {
           </Button>
 
           <LoadingButton type="submit" loading={methods.formState.isSubmitting}>
-            Edit
+            Create
           </LoadingButton>
         </DialogActions>
       </Dialog>

@@ -41,7 +41,7 @@ const Page = () => {
   const queryClient = useQueryClient();
 
   const handleClose = () => {
-    router.push("/cost-centers", { scroll: false });
+    router.push("/account-plans", { scroll: false });
   };
 
   const methods = useForm<any>({
@@ -54,13 +54,13 @@ const Page = () => {
 
   const submit = methods.handleSubmit(async (values) => {
     try {
-      const response = await api.costCenter.update(id, values);
+      const response = await api.accountPlan.update(id, values);
 
       handleClose();
 
       toast.success(getMessage(response));
 
-      queryClient.invalidateQueries("/api/cost-centers");
+      queryClient.invalidateQueries("/api/account-plans");
     } catch (error) {
       getValidations(methods, error as AxiosError);
     }
@@ -69,7 +69,7 @@ const Page = () => {
   useEffect(() => {
     const fetch = async () => {
       try {
-        const response = await api.costCenter.getById(id);
+        const response = await api.accountPlan.getById(id);
 
         methods.setValue("name", getData(response).name);
         methods.setValue("status", getData(response).status);
@@ -93,11 +93,11 @@ const Page = () => {
           onSubmit: submit,
         }}
       >
-        <DialogTitle color="primary">Edit Cost Center</DialogTitle>
+        <DialogTitle color="primary">Edit Account Plan</DialogTitle>
 
         <DialogContent>
           <DialogContentText>
-            Fill in the information below to edit the cost center.
+            Fill in the information below to edit the account plan.
           </DialogContentText>
 
           <Controller

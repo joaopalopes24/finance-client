@@ -37,7 +37,7 @@ type AccountPlan = {
   transactions: Transaction[];
 };
 
-export const options = {
+const OPTIONS = {
   responsive: true,
   plugins: {
     legend: {
@@ -160,7 +160,7 @@ const Page = () => {
 
           <Divider sx={{ marginY: 4 }} />
 
-          <Bar data={chartData()} options={options} />
+          <Bar data={chartData()} options={OPTIONS} />
         </CardContent>
       </Card>
     </SystemLayout>

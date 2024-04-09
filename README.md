@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 📌 Sunset Finance
 
-## Getting Started
+This application was developed for a work challenge.
 
-First, run the development server:
+React Ecosystem:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+-   [Yup](https://github.com/jquense/yup)
+-   [Lodash](https://github.com/lodash/lodash)
+-   [NextJS](https://github.com/vercel/next.js)
+-   [ChartJS](https://github.com/chartjs/Chart.js)
+-   [Zustand](https://github.com/pmndrs/zustand)
+-   [Material UI](https://github.com/mui/material-ui)
+-   [TanStack Query](https://github.com/TanStack/query)
+-   [React Hook Form](https://github.com/react-hook-form/react-hook-form)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 📋 Requirements
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+-   NPM v9 or higher
+-   Node v18 or higher
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### 🔧 How to install
 
-## Learn More
+-   Clone the project
 
-To learn more about Next.js, take a look at the following resources:
+    ```bash
+        git clone git@github.com:joaopalopes24/finance-client.git
+    ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+-   Copy the .env.example file
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+    -   If using linux: cp .env.example .env.local
+    -   If you are on windows, open the file in a code editor and save it again as .env
 
-## Deploy on Vercel
+-   Run the system using Docker
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    ```bash
+        docker build -t finance-client .
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+        docker run -p 3000:3000 finance-client
+    ```
+
+-   Run the system using Docker Compose
+
+    ```bash
+        docker compose up --build
+    ```
+
+-   Run the system with local NPM and Node
+
+    ```bash
+        npm install
+
+        npm run dev
+    ```
+
+## 🚀 Okay, good job!
